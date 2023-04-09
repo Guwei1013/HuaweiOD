@@ -63,7 +63,7 @@ var findLadders = function (beginWord, endWord, wordList) {
 
 /**
  * 回溯算法的实现
- * @param {string} beginWord
+ * @param {() => any} beginWord
  * @param {string} endWord
  * @param {string[]} wordList
  * @return {string[]}
