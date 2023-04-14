@@ -11,19 +11,14 @@ var subsetsWithDup = function(nums) {
             return
         }
 
-        /* 
-            当前一个元素被选择过和当前元素相同时，当前元素是不可以不选择的 
-            会造成重复，比如说[1,2,2]
-            第一个 [2] 必定是在下标为2收集的，后面回溯到下标1选择后，下标2不选择就会造成重复
-        */ 
-        if(!(choose && nums[index-1] === nums[index])) {
-            backtrack(index+1,false,path)
-        } 
-           
+        if(!(nums[index-1] === nums[index] && !choose)) {
+            path.push(nums[index])
+            backtrack(index+1,true,path)
+            path.pop()
+        }
 
-        path.push(nums[index])
-        backtrack(index+1,true,path)
-        path.pop()
+        backtrack(index+1,false,path)
+
 
     }
     backtrack(0,false,[])
