@@ -28,3 +28,37 @@ var sumOfLeftLeaves = function (root) {
   }
   return dfs(root, "");
 };
+
+
+
+
+/**
+ * 广度优先遍历
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumOfLeftLeaves = function(root) {
+  function isLeafNode(node) {
+    return node.left === null && node.right === null
+  }
+  const queue = [root]
+  let sum = 0
+  while(queue.length) {
+    const len = queue.length
+    for(let i=0; i<len; i++) {
+      const node = queue.shift()
+      if (node.left) {
+              if (isLeafNode(node.left)) {
+        sum+=node.left.val
+      } else {
+        queue.push(node.left)
+      }
+      }
+
+      if (node.right && !isLeafNode(node.right)) {
+        queue.push(node.right)
+      }
+    } 
+  }
+  return sum
+};
