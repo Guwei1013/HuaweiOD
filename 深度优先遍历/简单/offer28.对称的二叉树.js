@@ -6,43 +6,43 @@
  * }
  */
 /**
+ * 递归解法
  * @param {TreeNode} root
  * @return {boolean}
  */
 var isSymmetric = function (root) {
-  if (!root) return true;
-  function isLeafNode(node) {
-    return node.left === null && node.right === null;
-  }
-  function isPalindrome(str) {
-    let left = 0, right = str.length - 1
-    while(left < right) {
-        if(str[left] !== str[right]) {
-            return false
-        }
-        left++
-        right--
-    }
-    return true
-  }
-  const queue = [root];
-  while (queue.length) {
-    const len = queue.length;
-    let str = "";
-    for (let i = 0; i < len; i++) {
-      const node = queue.shift()
-      str+=node.val
-      const bol = !isLeafNode(node)
-      if(node.left) {
-        queue.push(node.left)
-      } else if(bol) {
-        queue.push({val: 0,})
-      }
-    }
-    if(!isPalindrome(str)) {
-      return false
-    }
+  function check(nodeL, nodeR) {
+    if (nodeL === null && nodeR === null) return true;
+    if (nodeL === null || nodeR === null) return false;
+    if (nodeL.val !== nodeR.val) return false;
+    return check(nodeL.left, nodeR.right) && check(nodeR.left, nodeL.right);
   }
 
-  return true
+  return check(root, root);
+};
+
+
+
+/**
+ * 广度优先遍历
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function (root) {
+  const queueL = [root],
+    queueR = [root];
+  while (queueL.length) {
+    const nodeL = queueL.pop();
+    const nodeR = queueR.pop();
+    if (nodeL === null && nodeR === null) continue;
+    if (nodeL === null || nodeR === null) return false;
+    if (nodeL.val !== nodeR.val) return false;
+    queueL.push(nodeL.left);
+    queueR.push(nodeR.right);
+
+    queueL.push(nodeL.right);
+    queueR.push(nodeR.left);
+  }
+
+  return true;
 };
