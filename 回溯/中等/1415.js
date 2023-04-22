@@ -1,5 +1,5 @@
 /**
- * 回溯算法 
+ * 回溯算法
  * 剪枝优化
  * @param {number} n
  * @param {number} k
@@ -53,25 +53,28 @@ var getHappyString = function (n, k) {
     return "";
   }
   const option = ["a", "b", "c"];
-  const path = [];
-  const queue = [""];
-  let depth = 0;
-  while (queue.length && depth < n) {
-    const len = queue.length;
-    let count = 0;
-    for (let i = 0; i < len; i++) {
-      const str = queue.shift();
-      const last = str[str.length - 1];
-      for (let j = 0; j < option.length; j++) {
-        if (option[j] !== last) {
-          queue.push(str + option[j]);
-          count++;
-        }
-        if (depth === n - 1 && count === k) {
-          return queue[queue.length - 1];
-        }
+  const aMax = 2 ** (n - 1);
+  const bMax = 2 ** n;
+  const queue = ["a"];
+  let step = 1,
+    index = aMax - 1 + k;
+  if (k > bMax) {
+    queue[0] = "c";
+    index = k - bMax + (aMax - 1);
+  } else if (k > aMax) {
+    queue[0] = "b";
+    index = k - aMax + (aMax - 1);
+  }
+  if (step === index) return queue.pop();
+  while (queue.length) {
+    const str = queue.shift();
+    const last = str[str.length - 1];
+    for (let i = 0; i < option.length; i++) {
+      if (last !== option[i]) {
+        queue.push(str + option[i]);
+        step++;
+        if (step === index) return queue.pop();
       }
     }
-    depth++;
   }
 };
