@@ -1,4 +1,6 @@
 /**
+ * 
+ * x | 0 能够将小数部分去除
  * @param {string[]} tokens
  * @return {number}
  */
