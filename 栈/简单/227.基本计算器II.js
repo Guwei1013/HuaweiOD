@@ -3,18 +3,6 @@
  * @return {number}
  */
 
-function computed(a, b, operator) {
-  switch (operator) {
-    case "+":
-      return a + b;
-    case "-":
-      return a - b;
-    case "*":
-      return (a * b) | 0;
-    default:
-      return (a / b) | 0;
-  }
-}
 
 var calculate = function (s) {
   const nums = [],
@@ -27,6 +15,12 @@ var calculate = function (s) {
     };
   const numReg = /\d/,
     signReg = /\+|-|\*|\//;
+  const computed = {
+    "+": (a, b) => a + b,
+    '-': (a, b) => a - b,
+    '*': (a, b) => a * b,
+    '/': (a, b) => a / b | 0,
+  }
 
   let num = 0;
   for (let i = 0; i < s.length; i++) {
@@ -41,7 +35,7 @@ var calculate = function (s) {
         const operator = sign.pop();
         const right = nums.pop(),
           left = nums.pop();
-        nums.push(computed(left, right, operator));
+        nums.push(computed[operator](left,right));
       }
       sign.push(str);
     }
@@ -52,7 +46,43 @@ var calculate = function (s) {
     const operator = sign.pop();
     const right = nums.pop(),
       left = nums.pop();
-    nums.push(computed(left, right, operator));
+      nums.push(computed[operator](left,right));
   }
   return nums.pop();
+};
+
+
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+
+var calculate = function (s) {
+  const nums = [];
+  const numReg = /\d/,
+    signReg = /\+|-|\*|\//;
+  const  computed = {
+    "+": (num, nums) => nums.push(num),
+    '-': (num, nums) => nums.push(-num),
+    '*': (num, nums) => nums.push(nums.pop() * num),
+    '/': (num, nums) => nums.push(nums.pop() / num | 0),
+  }
+  let num = 0,
+    sign = "+";
+
+  for (let i = 0; i < s.length; i++) {
+    const str = s[i];
+    if(str === ' ') {
+    } else if (numReg.test(str)) {
+      num = num * 10 + parseInt(str);
+    } else  {
+      computed[sign](num,nums)
+      sign = str;
+      num = 0;
+    }
+  }
+
+  computed[sign](num,nums)
+  return nums.reduce((a, b) => a + b);
 };
