@@ -8,7 +8,7 @@ const getMaxValue = (N, V, goods) => {
               dp[i][j] = dp[i - 1][j]
           } else {
               dp[i][j] = Math.max(
-                  dp[i - 1][j - i] + value,
+                  dp[i - 1][j - weight] + value,
                   dp[i - 1][j]
               );
           }
