@@ -18,3 +18,25 @@ var countBits = function (n) {
 
   return memo;
 };
+
+
+var countBits = function(n) {
+  const bits = new Array(n + 1).fill(0);
+  let highBit = 0;
+  for (let i = 1; i <= n; i++) {
+      if ((i & (i - 1)) == 0) {
+          highBit = i;
+      }
+      bits[i] = bits[i - highBit] + 1;
+  }
+  return bits;
+};
+
+
+var countBits = function(n) {
+  const bits = new Array(n + 1).fill(0);
+  for (let i = 1; i <= n; i++) {
+      bits[i] = bits[i >> 1] + (i & 1);
+  }
+  return bits;
+};
