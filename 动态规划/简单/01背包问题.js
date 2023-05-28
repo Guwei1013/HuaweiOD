@@ -15,6 +15,20 @@ const getMaxValue = (N, V, goods) => {
   return dp[N][V];
 };
 
+
+// 滚动数组优化空间复杂度
+const fn = (N, V, goods) => {
+  const dp = new Array(V+1).fill(0)
+  
+  for (let i=0; i<N; i++) {
+      const [vol, val] = goods[i]
+      for (let j=V; j>=vol; j--) {
+          dp[j] = Math.max(dp[j], dp[j - vol] + val) 
+      }
+  }
+  return dp[V]
+}
+
 console.log(
   getMaxValue(4, 5, [
     [1, 2],
