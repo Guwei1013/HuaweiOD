@@ -1,23 +1,24 @@
 const fn = (N, V, goods) => {
-  const data = []
-  const dp = new Array(V+1).fill(0)
-  for (let i=0; i<goods.length; i++) {
-    const [vol, val, n] = goods[i]
-    for (let k =1; k<=n; i++) {
-      data.push([vol*k, val*k, k])
-      n-=k
+  const data = [];
+  const dp = new Array(V + 1).fill(0);
+  for (let i = 0; i < goods.length; i++) {
+    const [vol, val, n] = goods[i];
+    let num = n;
+    for (let k = 1; k <= num; k++) {
+      data.push([vol * k, val * k, k]);
+      num -= k;
     }
-    if(n > 0) {
-      data.push([vol*n, val*n, n])
-    }
-  }
-
-  for (let i=0; i<data.length; i++) {
-    const [vol, val, n] = data[i]
-    for (let j=V; j>=vol; j++) {
-      dp[j] = Math.max(dp[j], dp[j - vol] + val)
+    if (num > 0) {
+      data.push([vol * num, val * num, num]);
     }
   }
 
-  return dp[N]
-}
+  for (let i = 0; i < data.length; i++) {
+    const [vol, val] = data[i];
+    for (let j = V; j >= vol; j--) {
+      dp[j] = Math.max(dp[j], dp[j - vol] + val);
+    }
+  }
+
+  return dp[V];
+};
