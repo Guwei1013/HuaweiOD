@@ -9,7 +9,7 @@ var maximumTastiness = function (price, k) {
   let min = 0,
     max = price[len - 1] - price[0];
   while (min <= max) {
-    let gap = Math.ceil((min + max) / 2);
+    let gap = Math.floor((min + max) / 2);
     let num = 1;
     for (let left = 0, right = 1; right < len; right++) {
       if (price[right] - price[left] >= gap) {
