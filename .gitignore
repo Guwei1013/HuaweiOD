@@ -1,5 +1,6 @@
 .DS_Store
-1.js
+.vscode
+[123456789].js
 copy.js
-debug.html
+*.html
 rl.js
