@@ -1,5 +1,6 @@
 .DS_Store
 .vscode
+.idea
 [123456789].js
 copy.js
 *.html
