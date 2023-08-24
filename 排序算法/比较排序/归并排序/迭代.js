@@ -50,3 +50,6 @@ const arr = [0,9,1,8,2,7,3,6,4,5]
 mergeSort(arr)
 console.log(arr)
 
+/*
+* 参考 https://blog.csdn.net/lemon_tree12138/article/details/51517753
+* */
