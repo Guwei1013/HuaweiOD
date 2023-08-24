@@ -57,10 +57,6 @@ const merge = (arr, result, start, end) => {
 		j++
 	} 
 
-
-	for (let i=start; i<=end; i++) {
-		arr[i] = result[i]
-	}
 }
 
 const mergeSort1 = (array) => {
@@ -71,4 +67,4 @@ const mergeSort1 = (array) => {
 
 
 
-console.log(mergeSort([1,3,5,2,4,6]))
+console.log(mergeSort1([1,3,5,2,4,6]))
